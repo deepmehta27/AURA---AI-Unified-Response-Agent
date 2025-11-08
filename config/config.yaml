@@ -1,0 +1,124 @@
+# AURA Configuration File
+
+# Application Settings
+app:
+  name: "AURA"
+  version: "1.0.0"
+  environment: "development"
+  debug: true
+
+# LLM Configuration
+llm:
+  provider: "openai"
+  model_name: "gpt-5-mini"
+  temperature: 0.7
+  max_tokens: 1000
+  streaming: true
+
+# Embeddings Configuration
+embeddings:
+  provider: "huggingface"
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  dimension: 384  # Must match the embedding model dimension
+
+# Pinecone Vector Store
+pinecone:
+  index_name: "aura-docs"
+  dimension: 384
+  metric: "cosine"
+  cloud: "aws"
+  region: "us-east-1"
+
+# Supabase Configuration
+supabase:
+  bucket_name: "aura-documents"
+  max_file_size: 10485760  # 10MB in bytes
+  allowed_extensions:
+    - "pdf"
+    - "docx"
+    - "txt"
+    - "png"
+    - "jpg"
+    - "jpeg"
+    - "wav"
+    - "mp3"
+
+# Database Configuration (PostgreSQL via Supabase)
+database:
+  pool_size: 10
+  max_overflow: 20
+  pool_timeout: 30
+  pool_recycle: 3600
+
+# RabbitMQ Configuration
+rabbitmq:
+  host: "localhost"
+  port: 5672
+  username: "guest"
+  password: "guest"
+  exchange: "aura_exchange"
+  queue_name: "aura_tasks"
+  routing_key: "aura.tasks"
+
+# Agent Configuration
+agents:
+  text_agent:
+    name: "TextAgent"
+    description: "Processes text queries and retrieves information from documents"
+    enabled: true
+    max_retries: 3
+    timeout: 30
+  
+  image_agent:
+    name: "ImageAgent"
+    description: "Analyzes images, performs OCR, and extracts visual information"
+    enabled: true
+    max_retries: 3
+    timeout: 60
+  
+  audio_agent:
+    name: "AudioAgent"
+    description: "Transcribes audio and processes voice queries"
+    enabled: true
+    max_retries: 3
+    timeout: 90
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: true
+  cors_origins:
+    - "http://localhost:7860"
+    - "http://localhost:3000"
+
+# UI Configuration
+ui:
+  title: "AURA - AI Unified Response Agent"
+  description: "Multimodal AI Customer Support System"
+  port: 7860
+  share: false
+  show_api: true
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/aura.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+
+# Monitoring Configuration
+monitoring:
+  prometheus_port: 9090
+  grafana_port: 3000
+  metrics_enabled: true
+  health_check_interval: 60
+
+# Airflow Configuration
+airflow:
+  dags_folder: "./airflow/dags"
+  executor: "CeleryExecutor"
+  parallelism: 32
+  dag_concurrency: 16
