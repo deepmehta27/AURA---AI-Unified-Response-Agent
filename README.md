@@ -1,171 +1,131 @@
----
+# AURA - AI Unified Response Agent
 
-````markdown
-# AURA - AI Unified Response Agent 🤖
+A production-ready multimodal multi-agent customer support system powered by LLMs and enterprise-grade infrastructure.
 
-<div align="center">
+## Overview
 
-![AURA Logo](https://img.shields.io/badge/AURA-AI%20Unified%20Response%20Agent-blue?style=for-the-badge)
-![Python](https://img.shields.io/badge/Python-3.9+-green?style=for-the-badge&logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688?style=for-the-badge&logo=fastapi)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-![Repo Size](https://img.shields.io/github/repo-size/deepmehta27/AURA?style=for-the-badge)
-![Contributors](https://img.shields.io/github/contributors/deepmehta27/AURA?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/deepmehta27/AURA?style=for-the-badge)
-
-**An open-source multimodal AI system that unifies text, image, and audio understanding through coordinated intelligent agents — built for real-world enterprise support.**
-
-[Overview](#-overview) • [Features](#-features) • [Tech Stack](#️-tech-stack) • [Installation](#-installation) • [Usage](#-usage) • [Architecture](#-architecture) • [Roadmap](#-roadmap) • [Contributing](#-contributing)
-
-</div>
-
----
-
-## 🎯 Overview
-
-**AURA** is an intelligent, multimodal AI system that processes **text, images, and audio** to deliver enterprise-grade customer support. It coordinates specialized AI agents through a robust orchestration layer, ensuring accurate, contextual, and real-time responses across modalities.
+AURA is an intelligent, multimodal AI system that processes **text, images, and audio** inputs to provide comprehensive customer support. Built with a multi-agent architecture, AURA coordinates specialized AI agents to deliver accurate, context-aware responses while maintaining enterprise-grade scalability and monitoring.
 
 ### Why AURA?
 
-- 🎭 **Multimodal Intelligence** — Handles text, image, and audio inputs seamlessly  
-- 🤝 **Multi-Agent Collaboration** — Specialized agents coordinate for better accuracy  
-- 📚 **RAG-Powered Reasoning** — Retrieval-Augmented Generation for contextual grounding  
-- 🏢 **Enterprise-Grade Design** — Scalable, observable, and production-ready  
-- 🔒 **Secure & Compliant** — Built with authentication, audit, and data privacy  
-- 📊 **Monitored in Real-Time** — Grafana + Prometheus dashboards for observability  
+- **Multimodal Intelligence**: Seamlessly handles text, image, and audio queries
+- **Multi-Agent Orchestration**: Specialized agents work together for optimal results
+- **RAG-Powered**: Retrieval-Augmented Generation ensures accurate, contextual responses
+- **Enterprise-Ready**: Built with scalable infrastructure and production monitoring
+- **Secure & Compliant**: Authentication, audit trails, and data governance built-in
+- **Observable**: Real-time monitoring with Grafana and Prometheus
 
----
-
-## 🎥 Demo
-
-Try the live demo (coming soon): [AURA Demo](https://aura-demo.netlify.app)  
-Watch the walkthrough: [Demo Video](https://youtu.be/xxxxxx)
-
----
-
-## ⚡ Quickstart
-
-```bash
-git clone https://github.com/deepmehta27/AURA.git
-cd AURA
-pip install -r requirements.txt
-python main.py
-````
-
----
-
-## ✨ Features
+## Features
 
 ### Core Capabilities
-
-* ✅ **Text Agent:** Understands and generates natural language responses
-* ✅ **Image Agent:** Performs OCR and visual interpretation
-* ✅ **Audio Agent:** Speech-to-text transcription and sound analysis
-* ✅ **Document Processor:** Handles PDF, DOCX, and image-based documents
-* ✅ **RAG Pipeline:** Pinecone-powered contextual retrieval
-* ✅ **Workflow Automation:** Apache Airflow orchestration
-* ✅ **Real-time Messaging:** RabbitMQ inter-agent communication
+- Text Agent: Natural language understanding and response generation
+- Image Agent: Visual content analysis and interpretation
+- Audio Agent: Speech-to-text transcription and audio processing
+- Document Processing: PDF, DOCX, and image document parsing
+- Vector Search: Semantic retrieval using Pinecone
+- Workflow Automation: Apache Airflow for complex task orchestration
+- Real-time Messaging: RabbitMQ for inter-agent communication
 
 ### User Experience
-
-* 🎨 **Interactive UI:** Gradio-based multimodal interface
-* 🚀 **FastAPI REST API:** Easy programmatic access
-* 📱 **Multi-format Uploads:** Text, image, and audio inputs
-* ⚡ **Async Processing:** Real-time streaming responses
+- Interactive UI: Gradio-based interface for easy interaction
+- REST API: FastAPI backend for programmatic access
+- Multi-format Upload: Support for various file types
+- Real-time Responses: Async processing for fast results
 
 ### DevOps & Monitoring
+- Docker Support: Containerized deployment
+- CI/CD Pipeline: GitHub Actions automation
+- Grafana Dashboards: Real-time performance monitoring
+- Comprehensive Logging: Track all system activities
 
-* 🐳 **Dockerized:** Full containerization and easy deploy
-* 🔄 **CI/CD:** GitHub Actions automated workflows
-* 📊 **Grafana Dashboards:** Live monitoring and metrics
-* 📝 **Structured Logging:** Complete traceability
+## Tech Stack
 
----
-
-## 🛠️ Tech Stack
-
-### AI & ML Components
-
-| Component         | Technology            | Purpose                |
-| ----------------- | --------------------- | ---------------------- |
-| LLM Orchestration | LangChain             | Agent routing and RAG  |
-| Models            | OpenAI GPT, Whisper   | Text generation & STT  |
-| Embeddings        | Sentence Transformers | Document vectorization |
-| Vision            | OpenCV, PIL           | Image processing       |
+### AI & Machine Learning
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| LLM Framework | LangChain | Agent orchestration and RAG |
+| Models | OpenAI GPT, Whisper | Text generation, speech-to-text |
+| Embeddings | Sentence Transformers | Document vectorization |
+| Computer Vision | OpenCV, PIL | Image processing |
 
 ### Infrastructure
-
-| Component | Technology            | Purpose                       |
-| --------- | --------------------- | ----------------------------- |
-| Vector DB | Pinecone              | Semantic search               |
-| Database  | PostgreSQL (Supabase) | Persistent data storage       |
-| Storage   | Supabase Storage      | Document and media handling   |
-| Messaging | RabbitMQ              | Async communication           |
-| Workflow  | Apache Airflow        | Task scheduling and pipelines |
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| Vector DB | Pinecone | Semantic search and retrieval |
+| Database | PostgreSQL (Supabase) | Data persistence |
+| Storage | Supabase Storage | Document storage |
+| Message Queue | RabbitMQ | Async agent communication |
+| Orchestration | Apache Airflow | Workflow management |
 
 ### Backend & API
-
-| Component     | Technology   | Purpose               |
-| ------------- | ------------ | --------------------- |
-| API Framework | FastAPI      | REST API backend      |
-| UI Framework  | Gradio       | User interface        |
-| Auth          | OAuth2 + JWT | Secure authentication |
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| API Framework | FastAPI | REST API endpoints |
+| UI Framework | Gradio | Interactive web interface |
+| Auth | OAuth2, JWT | Secure authentication |
 
 ### DevOps & Monitoring
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| Containerization | Docker | Application packaging |
+| CI/CD | GitHub Actions | Automated deployment |
+| Monitoring | Prometheus + Grafana | Metrics and visualization |
+| Logging | Python Logging | Application logs |
 
-| Component        | Technology           | Purpose                     |
-| ---------------- | -------------------- | --------------------------- |
-| Containerization | Docker               | Deployment consistency      |
-| CI/CD            | GitHub Actions       | Automated testing & deploys |
-| Monitoring       | Prometheus + Grafana | Metrics & alerting          |
-| Logging          | Python Logging       | Audit & debug               |
+## Prerequisites
 
----
+Before you begin, ensure you have the following installed:
 
-## 📋 Prerequisites
-
-Before setup, make sure you have:
-
-* **Python 3.9+** → [Download](https://www.python.org/downloads/)
-* **Docker & Docker Compose** → [Download](https://www.docker.com/)
-* **Git** → [Download](https://git-scm.com/)
+- Python 3.9+ ([Download](https://www.python.org/downloads/))
+- Docker & Docker Compose ([Download](https://www.docker.com/))
+- Git ([Download](https://git-scm.com/))
 
 ### Required API Keys
 
-| Service                                | Purpose            |
-| -------------------------------------- | ------------------ |
-| [OpenAI](https://platform.openai.com/) | LLMs & Whisper     |
-| [Pinecone](https://www.pinecone.io/)   | Vector DB          |
-| [Supabase](https://supabase.com/)      | Database & Storage |
+You'll need accounts and API keys for:
+- [OpenAI](https://platform.openai.com/) - For LLM capabilities
+- [Pinecone](https://www.pinecone.io/) - For vector database
+- [Supabase](https://supabase.com/) - For storage and database
 
----
-
-## 🚀 Installation
+## Installation
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/deepmehta27/AURA.git
-cd AURA
+```
+git clone https://github.com/deepmehta27/AURA---AI-Unified-Response-Agent.git
+cd AURA---AI-Unified-Response-Agent
 ```
 
-### 2. Setup Environment
+### 2. Create Virtual Environment
 
-```bash
+```
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```
 pip install -r requirements.txt
 ```
 
-### 3. Configure Environment Variables
+### 4. Configure Environment Variables
 
-```bash
+```
+# Copy example environment file
 cp .env.example .env
-nano .env
+
+# Edit .env file with your API keys
+nano .env  # or vim .env, or code .env
 ```
 
-Required keys:
-
+Required environment variables:
 ```
 OPENAI_API_KEY=your_key_here
 PINECONE_API_KEY=your_key_here
@@ -174,46 +134,44 @@ SUPABASE_URL=your_url_here
 SUPABASE_KEY=your_key_here
 ```
 
-### 4. Start Infrastructure Services
+### 5. Start Infrastructure Services
 
-```bash
+```
+# Start RabbitMQ, Prometheus, and Grafana
 cd docker
 docker-compose up -d
 cd ..
 ```
 
----
+## Usage
 
-## 💻 Usage
+### Start the FastAPI Backend
 
-### Run Backend
-
-```bash
+```
 cd api
 uvicorn main:app --reload --port 8000
 ```
 
-* **API:** [http://localhost:8000](http://localhost:8000)
-* **Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+API will be available at: `http://localhost:8000`
 
-### Run UI
+API Documentation: `http://localhost:8000/docs`
 
-```bash
+### Start the Gradio UI
+
+```
 cd ui
 python app.py
 ```
 
-* **Interface:** [http://localhost:7860](http://localhost:7860)
+UI will be available at: `http://localhost:7860`
 
-### Access Monitoring
+### Access Monitoring Dashboards
 
-* **Grafana:** [http://localhost:3000](http://localhost:3000) (admin/admin)
-* **Prometheus:** [http://localhost:9090](http://localhost:9090)
-* **RabbitMQ:** [http://localhost:15672](http://localhost:15672) (guest/guest)
+- **Grafana**: http://localhost:3000 (admin/admin)
+- **Prometheus**: http://localhost:9090
+- **RabbitMQ Management**: http://localhost:15672 (guest/guest)
 
----
-
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -223,22 +181,24 @@ python app.py
                  │
                  ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                     Agent Orchestrator                       │
-│              (Coordinates Agent Activities)                  │
+│                     Agent Orchestrator                      │
+│              (Coordinates Agent Activities)                 │
 └──────┬──────────────────┬──────────────────┬────────────────┘
        │                  │                  │
        ▼                  ▼                  ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ Text Agent  │    │ Image Agent │    │ Audio Agent │
-│ NLP + QA    │    │ OCR + CV    │    │ STT + Audio │
+│ Text Agent  │    │Image Agent  │    │Audio Agent  │
+│             │    │             │    │             │
+│ -  NLP      │    │ -  OCR      │    │ -  STT      │
+│ -  QA       │    │ -  Analysis │    │ -  Analysis │
 └──────┬──────┘    └──────┬──────┘    └──────┬──────┘
        │                  │                  │
        └──────────────────┴──────────────────┘
                          │
                          ▼
        ┌──────────────────────────────────────┐
-       │      RAG Pipeline & Vector Search     │
-       │         (Pinecone + LangChain)        │
+       │      RAG Pipeline & Vector Search    │
+       │         (Pinecone + LangChain)       │
        └──────────────────────────────────────┘
                          │
         ┌────────────────┼────────────────┐
@@ -249,89 +209,86 @@ python app.py
 └────────────┘  └─────────────┘  └──────────────┘
 ```
 
----
+### Key Components
 
-## 🧪 Testing
+1. **User Interface Layer**: Gradio UI and FastAPI for user interaction
+2. **Agent Orchestration**: Coordinates multiple specialized agents
+3. **Processing Agents**: Text, Image, and Audio agents handle specific modalities
+4. **RAG Pipeline**: Retrieval-Augmented Generation for accurate responses
+5. **Infrastructure**: Pinecone, Supabase, RabbitMQ, PostgreSQL
 
-```bash
-pytest tests/ -v
-# or with coverage
-pytest tests/ --cov=. --cov-report=html
+## Project Structure
+
+```
+aura/
+├── agents/             # AI agent implementations
+├── api/                # FastAPI backend
+├── ui/                 # Gradio interface
+├── utils/              # Helper utilities
+├── models/             # Database models
+├── config/             # Configuration files
+├── airflow/            # Workflow orchestration
+├── monitoring/         # Prometheus metrics
+├── docker/             # Docker configurations
+├── .github/workflows/  # CI/CD pipelines
+└── tests/              # Unit and integration tests
 ```
 
----
+## Testing
 
-## 🔧 Configuration
+Run unit tests:
 
-Adjust settings in `config/config.yaml`:
+```
+pytest tests/ -v
+```
 
-* Model parameters
-* Agent behavior
-* Database credentials
-* Monitoring endpoints
+## Configuration
 
----
+Edit `config/config.yaml` to customize:
 
-## 📊 Monitoring
+- LLM model selection
+- Agent behavior
+- Database connections
+- Monitoring settings
 
-* **Grafana:** Visual dashboards
-* **Prometheus:** Metrics and alerts
-* **Logs:** Stored in `/logs` for debugging and audits
+## Monitoring
 
----
+Access monitoring dashboards:
 
-## 🧭 Roadmap
+1. **Grafana**: Visualize metrics and create custom dashboards
+2. **Prometheus**: Query raw metrics and set up alerts
+3. **Application Logs**: Check `logs/` directory for detailed logs
 
-* [ ] Add conversational memory & context chaining
-* [ ] Integrate multimodal summarization agent
-* [ ] Build conversation analytics dashboard
-* [ ] Add Kubernetes + ArgoCD deployment support
-* [ ] Extend to multilingual voice input
+## Contributing
 
----
+Contributions are welcome! Please follow these steps:
 
-## 🤝 Contributing
-
-Contributions welcome 🎉
-
-1. Fork the repo
+1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push (`git push origin feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
----
+## License
 
-## 📝 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Licensed under the **MIT License**.
-See the [LICENSE](LICENSE) file for details.
-
----
-
-## 👤 Author
+## Author
 
 **Deep Mehta**
-💼 [LinkedIn](https://linkedin.com/in/deepmehta27) • 💻 [GitHub](https://github.com/deepmehta27)
-📧 [deepmehta827@gmail.com](mailto:deepmehta827@gmail.com)
+
+- GitHub: [@deepmehta27](https://github.com/deepmehta27)
+- LinkedIn: [Deep Mehta](https://linkedin.com/in/deepmehta27)
+- Email: deepmehta827@gmail.com
+
+## Acknowledgments
+
+- OpenAI for GPT models and Whisper
+- Pinecone for vector database
+- Supabase for backend infrastructure
+- LangChain community for agent frameworks
 
 ---
 
-## 🙏 Acknowledgments
-
-* OpenAI (GPT + Whisper)
-* Pinecone (Vector DB)
-* Supabase (Storage & Database)
-* LangChain Community
-
----
-
-<div align="center">
-
-⭐ **Star this repo if you find it helpful!** ⭐
-Made with ❤️ by **Deep Mehta**
-
-</div>
+Made with ❤️ by Deep Mehta
 ```
-
----
