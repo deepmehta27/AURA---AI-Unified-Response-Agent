@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables
+.env
+
+# Data & Logs
+data/temp/*
+data/sample/*
+!data/temp/.gitkeep
+!data/sample/.gitkeep
+logs/*.log
+*.log
+
+# Airflow
+airflow/logs/
+airflow/*.db
+airflow/*.pid
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.dockerignore
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+dist/
+build/
+*.egg-info/
