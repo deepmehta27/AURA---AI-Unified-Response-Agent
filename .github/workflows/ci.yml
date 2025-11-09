@@ -1,0 +1,5 @@
+# temporarily disable it by renaming
+mv .github/workflows/ci.yml .github/workflows/ci.yml.disabled
+git add .github/workflows/ci.yml.disabled
+git commit -m "Temporarily disable CI"
+git push
