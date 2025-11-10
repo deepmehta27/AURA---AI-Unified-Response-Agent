@@ -1,76 +1,94 @@
-# AURA - AI Unified Response Agent
+# 🧠 AURA – AI Unified Response Agent  
+### **Intelligent Document Processing & Workflow Automation Platform**
 
-A production-ready multimodal multi-agent customer support system powered by LLMs and enterprise-grade infrastructure.
+AURA is an **enterprise-grade multimodal AI platform** that automates document processing, data extraction, and business workflows.  
+Unlike generic chatbots, AURA combines **multi-agent orchestration**, **persistent vector memory**, and **automation pipelines** to process 1000+ documents, apply business logic, and integrate with existing enterprise systems.
 
-## Overview
+---
 
-AURA is an intelligent, multimodal AI system that processes **text, images, and audio** inputs to provide comprehensive customer support. Built with a multi-agent architecture, AURA coordinates specialized AI agents to deliver accurate, context-aware responses while maintaining enterprise-grade scalability and monitoring.
+## 🎯 Key Differentiators
 
-### Why AURA?
+**Why AURA vs ChatGPT or Generic AI Assistants?**
 
-- **Multimodal Intelligence**: Seamlessly handles text, image, and audio queries
-- **Multi-Agent Orchestration**: Specialized agents work together for optimal results
-- **RAG-Powered**: Retrieval-Augmented Generation ensures accurate, contextual responses
-- **Enterprise-Ready**: Built with scalable infrastructure and production monitoring
-- **Secure & Compliant**: Authentication, audit trails, and data governance built-in
-- **Observable**: Real-time monitoring with Grafana and Prometheus
+| Feature                   | Generic AI Chatbots        |      AURA                              |
+|---------------------------|----------------------------|----------------------------------------|
+| **Document Memory**       | Forgets after conversation | Persistent storage in vector database  |
+| **Batch Processing**      | One document at a time     | Process 100+ documents simultaneously  |
+| **Workflow Automation**   | Manual operations only     | Automated multi-step workflows         |
+| **Business Intelligence** | No historical context      | Learns from past documents and patterns|
+| **Integration**           | Limited APIs               | Full FastAPI + Supabase + Airflow      |
+| **Custom Logic**          | Generic responses          | Company-specific rules and policies    |
+| **Scale**                 | Chat-based limits          | Production-ready batch processing      |
 
-## Features
+AURA isn’t just an assistant — it’s a **backend automation system** that learns, acts, and scales.
 
-### Core Capabilities
-- Text Agent: Natural language understanding and response generation
-- Image Agent: Visual content analysis and interpretation
-- Audio Agent: Speech-to-text transcription and audio processing
-- Document Processing: PDF, DOCX, and image document parsing
-- Vector Search: Semantic retrieval using Pinecone
-- Workflow Automation: Apache Airflow for complex task orchestration
-- Real-time Messaging: RabbitMQ for inter-agent communication
+---
 
-### User Experience
-- Interactive UI: Gradio-based interface for easy interaction
-- REST API: FastAPI backend for programmatic access
-- Multi-format Upload: Support for various file types
-- Real-time Responses: Async processing for fast results
+## ⚙️ Core Features
+### Multi-Modal Document Processing
+- **Text Extraction**: PDF, DOCX, TXT files with intelligent parsing
+- **OCR**: Extract text from scanned documents and images
+- **Audio Transcription**: Convert speech to text with OpenAI Whisper
+- **Image Analysis**: Visual understanding with GPT-4 Vision
 
-### DevOps & Monitoring
-- Docker Support: Containerized deployment
-- CI/CD Pipeline: GitHub Actions automation
-- Grafana Dashboards: Real-time performance monitoring
-- Comprehensive Logging: Track all system activities
+### Intelligent Automation
+- **Smart Routing**: Automatically classify and route documents to specialized agents
+- **Data Extraction**: Pull structured data from unstructured documents
+- **Validation**: Apply business rules and flag anomalies
+- **Batch Processing**: Handle hundreds of documents in parallel
 
-## Tech Stack
+### Enterprise Features
+- **Vector Search**: Semantic search across millions of documents using Pinecone
+- **Persistent Memory**: Never lose context - store and query entire document history
+- **Audit Trail**: Track all document processing with Supabase storage
+- **API-First**: RESTful API for easy integration with existing systems
+
+## 💼 Use Cases
+- **Invoice Processing:** Automate data extraction and validation across 100s of invoices.
+- **Resume Screening:** Parse and rank resumes using embeddings and custom filters.
+- **Contract Analysis:** Compare clauses, flag risks, and ensure policy compliance.
+
+## 🧠 Tech Stack
 
 ### AI & Machine Learning
 | Component | Technology | Purpose |
-|-----------|-----------|---------|
-| LLM Framework | LangChain | Agent orchestration and RAG |
-| Models | OpenAI GPT, Whisper | Text generation, speech-to-text |
-| Embeddings | Sentence Transformers | Document vectorization |
-| Computer Vision | OpenCV, PIL | Image processing |
+|-----------|-------------|----------|
+| **LLMs** | OpenAI GPT-4o-mini (text), GPT-4.1-mini (vision) | Natural language understanding and multimodal reasoning |
+| **Speech-to-Text** | OpenAI Whisper | Audio transcription and voice query processing |
+| **Frameworks** | LangChain + LangGraph | Multi-agent orchestration and RAG pipeline |
+| **Embeddings** | Sentence Transformers (all-MiniLM-L6-v2) | Semantic vectorization for document search |
+| **RAG** | Custom Retrieval-Augmented Generation | Contextual information retrieval and reasoning |
+
+---
 
 ### Infrastructure
 | Component | Technology | Purpose |
-|-----------|-----------|---------|
-| Vector DB | Pinecone | Semantic search and retrieval |
-| Database | PostgreSQL (Supabase) | Data persistence |
-| Storage | Supabase Storage | Document storage |
-| Message Queue | RabbitMQ | Async agent communication |
-| Orchestration | Apache Airflow | Workflow management |
+|-----------|-------------|----------|
+| **Vector Database** | Pinecone | Semantic search, long-term vector memory |
+| **Storage** | Supabase | File management and metadata storage |
+| **Database** | PostgreSQL (via Supabase) | Structured data persistence |
+| **Message Queue** | RabbitMQ | Asynchronous inter-agent communication |
+| **Workflow Orchestration** | Apache Airflow | Batch and scheduled workflow automation |
+
+---
 
 ### Backend & API
 | Component | Technology | Purpose |
-|-----------|-----------|---------|
-| API Framework | FastAPI | REST API endpoints |
-| UI Framework | Gradio | Interactive web interface |
-| Auth | OAuth2, JWT | Secure authentication |
+|-----------|-------------|----------|
+| **API Framework** | FastAPI | RESTful API endpoints for integration |
+| **UI Framework** | Gradio | Interactive multimodal user interface |
+| **Authentication** | OAuth2 + JWT | Secure access control for API and UI |
+
+---
 
 ### DevOps & Monitoring
 | Component | Technology | Purpose |
-|-----------|-----------|---------|
-| Containerization | Docker | Application packaging |
-| CI/CD | GitHub Actions | Automated deployment |
-| Monitoring | Prometheus + Grafana | Metrics and visualization |
-| Logging | Python Logging | Application logs |
+|-----------|-------------|----------|
+| **Containerization** | Docker + Docker Compose | Environment consistency and easy deployment |
+| **CI/CD Pipeline** | GitHub Actions | Automated build, test, and deploy workflow |
+| **Monitoring** | Prometheus + Grafana | Real-time system metrics and observability |
+| **Logging** | Structured Logging (RotatingFileHandler) | Persistent and searchable application logs |
+
 
 ## Prerequisites
 
@@ -171,17 +189,17 @@ UI will be available at: `http://localhost:7860`
 - **Prometheus**: http://localhost:9090
 - **RabbitMQ Management**: http://localhost:15672 (guest/guest)
 
-## Architecture
+## 🧱 System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        User Interface                        │
-│                   (Gradio UI / FastAPI)                      │
+│                        User Interface                       │
+│                   (Gradio UI / FastAPI)                     │
 └────────────────┬────────────────────────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                     Agent Orchestrator                      │
+│                 Multi-Agent Orchestrator                    │
 │              (Coordinates Agent Activities)                 │
 └──────┬──────────────────┬──────────────────┬────────────────┘
        │                  │                  │
@@ -287,6 +305,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Pinecone for vector database
 - Supabase for backend infrastructure
 - LangChain community for agent frameworks
+- FastAPI and Gradio communities for open-source support
+- Prometheus for real-time observability tooling
 
 ---
 
