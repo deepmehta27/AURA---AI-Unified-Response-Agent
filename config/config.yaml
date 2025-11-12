@@ -11,9 +11,10 @@ app:
 llm:
   provider: "openai"
   model_name: "gpt-5-mini"
-  temperature: 0.7
-  max_tokens: 1000
-  streaming: true
+  max_tokens: 2000
+  streaming: false
+  reasoning_effort: "medium"
+  verbosity: "medium"
 
 # Embeddings Configuration
 embeddings:
