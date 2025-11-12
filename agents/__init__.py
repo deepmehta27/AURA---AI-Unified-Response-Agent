@@ -1,17 +1,6 @@
-"""
-Multi-agent modules for AURA.
-"""
+"""AURA Agent System"""
+
 from .base_agent import BaseAgent
-from .text_agent import TextAgent
-from .image_agent import ImageAgent
-from .audio_agent import AudioAgent
-from .orchestrator import Orchestrator
+from .text_agent import text_agent
 
-__all__ = [
-    "BaseAgent",
-    "TextAgent",
-    "ImageAgent",
-    "AudioAgent",
-    "Orchestrator",
-]
-
+__all__ = ['BaseAgent', 'text_agent']
