@@ -13,6 +13,7 @@ ENV/
 .env
 
 # Data & Logs
+data/
 data/temp/*
 data/sample/*
 !data/temp/.gitkeep
