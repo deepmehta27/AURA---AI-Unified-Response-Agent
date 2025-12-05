@@ -1,50 +1,156 @@
+# ============================================
+# PYTHON / BACKEND
+# ============================================
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-venv/
-env/
-ENV/
-.venv
+*.egg-info/
+dist/
+build/
+*.egg
 
-# Environment variables
+# Environment Variables
 .env
-
-# Data & Logs
-data/
-data/temp/*
-data/sample/*
-!data/temp/.gitkeep
-!data/sample/.gitkeep
-logs/*.log
-*.log
-
-# Airflow
-airflow/logs/
-airflow/*.db
-airflow/*.pid
+.env.local
+.env.*.local
+config/.env
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Docker
-*.dockerignore
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
+.tox/
 
-# Build
-dist/
-build/
-*.egg-info/
+# ============================================
+# NEXT.JS / FRONTEND
+# ============================================
+# Frontend specific
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env*.local
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Testing
+frontend/coverage
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Production
+frontend/build
+
+# Misc
+frontend/.DS_Store
+frontend/*.pem
+
+# Debug
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Local env files
+frontend/.env
+frontend/.env*.local
+
+# Vercel
+frontend/.vercel
+
+# TypeScript
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# ============================================
+# DATA / TEMPORARY FILES
+# ============================================
+
+# Uploaded files
+data/uploads/
+data/sample/
+data/temp/
+data/test_images/
+data/test_audio/
+tests/data/
+data/test_*/
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# ============================================
+# AI MODEL CACHE
+# ============================================
+
+# Whisper models
+~/.cache/whisper/
+
+# Hugging Face cache
+~/.cache/huggingface/
+
+# ============================================
+# API KEYS & SECRETS (IMPORTANT!)
+# ============================================
+
+# NEVER commit these!
+.env
+.env.local
+.env.production
+.env.development
+*.pem
+*.key
+secrets.yaml
+credentials.json
+
+# ============================================
+# DOCKER (if you use it later)
+# ============================================
+
+docker-compose.override.yml
+.dockerignore
+
+# ============================================
+# MONITORING / LOGS
+# ============================================
+
+monitoring/logs/
+monitoring/data/
+*.log
+logs/
