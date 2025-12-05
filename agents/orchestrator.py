@@ -3,7 +3,7 @@ LangGraph-based Multi-Agent Orchestrator
 Routes queries to appropriate agents and manages workflows
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List
 from langgraph.graph import StateGraph, END
 from agents.agent_state import AgentState
 from agents.text_agent import text_agent
@@ -11,6 +11,7 @@ from agents.image_agent import image_agent
 from utils.logger import logger
 from openai import OpenAI
 from config.settings import settings
+import json
 
 
 class AgentOrchestrator:
@@ -18,6 +19,7 @@ class AgentOrchestrator:
     
     def __init__(self):
         self.client = OpenAI(api_key=settings.openai_api_key)
+        self.model = settings.get('llm.model_name', 'gpt-5-mini')
         self.workflow = self._build_workflow()
         logger.info("AgentOrchestrator initialized with LangGraph")
     
@@ -59,72 +61,119 @@ class AgentOrchestrator:
         
         return workflow.compile()
     
+    def _call_openai(
+        self,
+        messages: List[Dict[str, str]],
+        max_tokens: int = 2000,
+        reasoning_effort: str = "medium",
+        verbosity: str = "medium"
+    ) -> str:
+        """Call OpenAI API"""
+        try:
+            params = {
+                "model": self.model,
+                "messages": messages,
+                "store": False
+            }
+            
+            # GPT-5 uses max_completion_tokens
+            if "gpt-5" in self.model.lower():
+                params["max_completion_tokens"] = max_tokens
+                params["verbosity"] = verbosity
+                params["reasoning_effort"] = reasoning_effort
+            else:
+                params["max_tokens"] = max_tokens
+            
+            response = self.client.chat.completions.create(**params)
+            return response.choices[0].message.content
+            
+        except Exception as e:
+            logger.error(f"OpenAI call failed: {str(e)}")
+            raise
+    
+    def _parse_classification(self, response: str) -> Dict[str, str]:
+        """Parse classification response"""
+        try:
+            # Try to extract JSON from response
+            response = response.strip()
+            
+            # Remove markdown code blocks if present
+            if response.startswith("```"):
+                response = response.split("```")[1]
+                if response.startswith("json"):
+                    response = response[4:]
+            
+            # Parse JSON
+            classification = json.loads(response)
+            
+            # Validate fields
+            if "type" not in classification or "intent" not in classification:
+                raise ValueError("Missing required fields in classification")
+            
+            return classification
+            
+        except Exception as e:
+            logger.error(f"Failed to parse classification: {str(e)}")
+            # Return default
+            return {"type": "text", "intent": "question"}
+    
     def _classify_query(self, state: AgentState) -> AgentState:
         """Classify the query type and intent"""
         try:
             query = state["query"]
-            has_image = state.get("image_path") is not None
-            has_audio = state.get("audio_path") is not None
-            has_document = state.get("document_path") is not None
+            has_image = "image_path" in state and state["image_path"] is not None
+            has_audio = "audio_path" in state and state["audio_path"] is not None
             
             logger.info(f"Classifying query: {query[:50]}...")
             
-            # Build classification prompt
-            classification_prompt = f"""Classify this user request:
+            # Simplified classification prompt
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are a query classifier. Respond with ONLY a JSON object, no explanation."
+                },
+                {
+                    "role": "user",
+                    "content": f"""Classify this query:
+Query: "{query}"
+Has image: {has_image}
+Has audio: {has_audio}
 
-Query: {query}
-Has Image: {has_image}
-Has Audio: {has_audio}
-Has Document: {has_document}
-
-Determine:
-1. Query Type: text, image, audio, or multi_modal
-2. Intent: search, analyze, process, or question
-
-Respond in this exact format:
-Type: <query_type>
-Intent: <intent>
-Reasoning: <brief reasoning>"""
-
-            response = self.client.chat.completions.create(
-                model="gpt-5-mini",
-                messages=[{"role": "user", "content": classification_prompt}],
-                max_completion_tokens=150,
-                verbosity="low",
+Return JSON:
+{{
+  "type": "text|image|audio|multi_modal",
+  "intent": "search|question|analyze|process"
+}}"""
+                }
+            ]
+        
+            # Use lower token limit for classification
+            response = self._call_openai(
+                messages=messages,
+                max_tokens=100,
                 reasoning_effort="low",
-                store=False
+                verbosity="low"
             )
             
-            result = response.choices[0].message.content
+            # Parse classification
+            classification = self._parse_classification(response)
             
-            # Parse response
-            query_type = "text"  # default
-            intent = "question"  # default
+            state["query_type"] = classification["type"]
+            state["intent"] = classification["intent"]
+            state["processing_steps"].append(
+                f"Classified as {classification['type']} with intent {classification['intent']}"
+            )
             
-            for line in result.split("\n"):
-                if line.startswith("Type:"):
-                    query_type = line.split(":")[1].strip().lower()
-                elif line.startswith("Intent:"):
-                    intent = line.split(":")[1].strip().lower()
-            
-            # Override if files present
-            if has_image and not has_document:
-                query_type = "image"
-            elif has_image and (has_document or len(query) > 20):
-                query_type = "multi_modal"
-            
-            state["query_type"] = query_type
-            state["intent"] = intent
-            state["processing_steps"] = [f"Classified as {query_type} with intent {intent}"]
-            
-            logger.info(f"Classification: Type={query_type}, Intent={intent}")
+            logger.info(f"Classification: Type={classification['type']}, Intent={classification['intent']}")
             
             return state
             
         except Exception as e:
-            logger.error(f"Error in classification: {str(e)}")
-            state["error"] = str(e)
-            state["query_type"] = "error"
+            logger.error(f"Classification failed: {str(e)}")
+            # Fallback classification
+            state["query_type"] = "text"
+            state["intent"] = "question"
+            state["processing_steps"].append("Classification failed, defaulting to text/question")
             return state
     
     def _route_query(self, state: AgentState) -> str:
@@ -263,7 +312,7 @@ Reasoning: <brief reasoning>"""
 Provide a unified, clear answer that integrates all information."""
 
                 response = self.client.chat.completions.create(
-                    model="gpt-5-mini",
+                    model=self.model,
                     messages=[{"role": "user", "content": synthesis_prompt}],
                     max_completion_tokens=500,
                     verbosity="medium",
@@ -327,6 +376,13 @@ Provide a unified, clear answer that integrates all information."""
             logger.info(f"Starting workflow for query: {query[:50]}...")
             final_state = self.workflow.invoke(initial_state)
             
+            # FIX: Convert current_agent string to list for agents_used
+            current_agent = final_state.get("current_agent")
+            if current_agent:
+                agents_used = [current_agent] if isinstance(current_agent, str) else current_agent
+            else:
+                agents_used = []
+            
             # Return result
             return {
                 "success": final_state.get("error") is None,
@@ -335,7 +391,7 @@ Provide a unified, clear answer that integrates all information."""
                 "metadata": {
                     "query_type": final_state.get("query_type"),
                     "intent": final_state.get("intent"),
-                    "agents_used": final_state.get("current_agent"),
+                    "agents_used": agents_used,  # NOW IT'S A LIST!
                     "processing_steps": final_state.get("processing_steps", []),
                     **final_state.get("metadata", {})
                 },
@@ -347,7 +403,11 @@ Provide a unified, clear answer that integrates all information."""
             return {
                 "success": False,
                 "error": str(e),
-                "response": None
+                "response": None,
+                "metadata": {
+                    "agents_used": [],  # Return empty list on error
+                    "processing_steps": []
+                }
             }
 
 
