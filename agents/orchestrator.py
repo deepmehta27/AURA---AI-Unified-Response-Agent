@@ -130,7 +130,24 @@ class AgentOrchestrator:
             messages = [
                 {
                     "role": "system",
-                    "content": "You are a query classifier. Respond with ONLY a JSON object, no explanation."
+                    "content": """You are a Document Processing Request Classifier for AURA.
+
+                    AGENT CAPABILITIES:
+                    - text: Document Q&A, contract analysis, RAG search, policy review
+                    - image: Document OCR, form extraction, invoice processing, diagram analysis
+                    - audio: Meeting transcription, call analysis, interview intelligence
+                    - multi_modal: Combined analysis (e.g., "transcribe this meeting and search our contracts")
+
+                    INTENT TYPES:
+                    - extract: Pull specific data (dates, amounts, clauses, entities)
+                    - analyze: Deep document analysis, comparison, risk assessment
+                    - search: Find information across document knowledge base
+                    - question: Answer specific question from documents
+                    - summarize: Condense document or meeting content
+                    - process: Convert format (OCR, transcribe, translate)
+
+                    Return ONLY valid JSON, no explanation."""
+
                 },
                 {
                     "role": "user",
