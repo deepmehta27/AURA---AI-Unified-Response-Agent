@@ -266,16 +266,48 @@ class AudioAgent(BaseAgent):
             messages = [
                 {
                     "role": "system",
-                    "content": "You are an expert at analyzing audio transcripts."
+                    "content": """You are a Meeting & Business Audio Intelligence Specialist.
+
+                    EXPERTISE: Extract actionable insights from meetings, calls, interviews, presentations.
+
+                    FOCUS:
+                    - Action items and decisions
+                    - Key discussion points
+                    - Commitments and deadlines
+                    - Risks and concerns mentioned
+                    - Speaker roles and contributions"""
                 },
                 {
                     "role": "user",
-                    "content": f"""Audio Transcript:
-{transcript}
+                    "content": f"""MEETING/AUDIO TRANSCRIPT:
+                    {transcript}
 
-Analysis Task: {analysis_prompt}
+                    ANALYSIS REQUEST: {analysis_prompt}
 
-Provide a detailed analysis."""
+                    PROVIDE:
+                    **Summary:** [3-5 key points]
+
+                    **Decisions Made:**
+                    - Decision 1 (timestamp, who decided)
+                    - Decision 2
+
+                    **Action Items:**
+                    - [ ] Task (Assigned to: X, Due: Y, Time: Z)
+
+                    **Key Topics:**
+                    1. Topic + depth of discussion
+                    2. Topic + depth
+
+                    **Risks/Concerns:**
+                    ⚠️ [Issues raised with context]
+
+                    **Questions Needing Follow-up:**
+                    - Open question 1
+                    - Open question 2
+
+                    **Overall Tone:** [collaborative/tense/productive/etc]
+
+                    Focus on actionable business intelligence."""
                 }
             ]
             
@@ -319,7 +351,16 @@ Provide a detailed analysis."""
             messages = [
                 {
                     "role": "system",
-                    "content": "You are an expert at summarizing audio transcripts concisely."
+                    "content": """You are a Meeting Summarization Specialist.
+
+                    TASK: Create actionable meeting summaries for busy professionals.
+
+                    FORMAT:
+                    - Executive summary (2-3 sentences)
+                    - Key decisions (what was agreed)
+                    - Action items (who, what, when)
+                    - Open questions
+                    - Next steps"""
                 },
                 {
                     "role": "user",
