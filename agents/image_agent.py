@@ -278,7 +278,36 @@ class ImageAgent(BaseAgent):
                     "content": [
                         {
                             "type": "text",
-                            "text": "Extract all visible text from this image. Maintain formatting and structure. If no text is visible, say 'No text detected'."
+                            "text": """DOCUMENT OCR EXTRACTION
+
+                        TASK: Extract ALL text from this document image with business-document precision.
+
+                        REQUIREMENTS:
+                        1. Extract every word, number, and symbol
+                        2. Preserve formatting (line breaks, spacing, structure)
+                        3. Identify document structure (headers, sections, tables)
+                        4. Flag uncertain text with [?]
+                        5. Note any missing or illegible sections
+
+                        OUTPUT FORMAT:
+                        **Document Type:** [type]
+
+                        **Full Text:**
+                        [Complete extracted text with formatting preserved]
+
+                        **Structured Data:**
+                        - Date(s): [if present]
+                        - ID/Reference Numbers: [if present]
+                        - Amounts/Prices: [if present]
+                        - Parties/Names: [if present]
+
+                        **Tables** (if present):
+                        [Table data in structured format]
+
+                        **OCR Quality:** [confidence level]
+                        **Issues:** [any unclear sections]
+
+                        Be thorough - every word matters for document intelligence."""
                         },
                         self._build_image_content(image_data)
                     ]
@@ -347,7 +376,29 @@ class ImageAgent(BaseAgent):
                     "content": [
                         {
                             "type": "text",
-                            "text": "Describe this image in detail. Include objects, people, text, colors, and overall composition."
+                            "text": """Document Image Analysis:
+
+                            TASK: Identify and describe this document image for business intelligence.
+
+                            OUTPUT:
+                            **Document Type:** [invoice/contract/receipt/form/report/letter/diagram/other]
+
+                            **Key Visual Elements:**
+                            - Headers/Titles: [text]
+                            - Logos/Branding: [if present]
+                            - Layout: [single/multi-column, form, table, freeform]
+                            - Notable Features: [stamps, signatures, barcodes]
+
+                            **Text Preview:** [sample of visible text]
+
+                            **Quality Assessment:**
+                            - Scan Quality: [excellent/good/poor]
+                            - Readability: [clear/moderate/difficult]
+                            - Issues: [blur, skew, shadows, missing parts]
+
+                            **Recommended Action:** [OCR/manual entry/rescan]
+
+                            Focus on document characteristics, not artistic description."""
                         },
                         self._build_image_content(image_data)
                     ]
@@ -373,7 +424,17 @@ class ImageAgent(BaseAgent):
     def _analyze_image(self, image_data: Dict[str, Any], query: str) -> Dict[str, Any]:
         """Perform custom analysis"""
         try:
-            analysis_prompt = query if query else "Analyze this image in detail."
+            analysis_prompt = query if query else """Deep Document Analysis:
+
+            ANALYZE this document image for:
+            1. Document Type & Purpose
+            2. Key Information (dates, amounts, parties, terms)
+            3. Document Structure (sections, clauses, fields)
+            4. Legal/Financial Elements (signatures, totals, terms)
+            5. Completeness (missing fields, stamps, signatures)
+            6. Risks/Flags (anomalies, inconsistencies, concerns)
+
+            Provide business intelligence, not just description."""
             
             messages = [
                 {
